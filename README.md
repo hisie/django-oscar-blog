@@ -14,11 +14,10 @@ link out to catalogue products they mention.
   edit, and delete posts — list/create/update/delete views following the
   exact same conventions as Oscar's own `dashboard.pages` app (flatpages),
   including its permission model (`is_staff` by default).
-- It does **not** ship a newsletter integration, a product-picker
-  autocomplete widget (the dashboard form uses a plain multi-select — fine
-  at a small catalogue's scale, worth swapping for something like Oscar's
-  own Range product-search UI if it becomes unwieldy), or a "featured
-  products" CTA anywhere in the storefront — see "Adding a CTA" below.
+- It does **not** ship a newsletter integration or a "featured products"
+  CTA anywhere in the storefront — see "Adding a CTA" below. The
+  related-products picker defaults to a plain multi-select but has an
+  opt-in AJAX autocomplete mode — see "Related products" below.
 
 ## Installation
 
@@ -106,6 +105,36 @@ into the `"Content"` entry's `"children"` list.
 mention me" yet — the reverse relation is available as
 `product.blog_posts.all()` if a host project wants to add that to a
 product page.
+
+**Dashboard picker widget — two modes, one setting:**
+
+```python
+OSCAR_BLOG_PRODUCT_AUTOCOMPLETE = True  # default: False
+```
+
+- **Off (default)**: a plain `<select multiple>` with every product
+  rendered as an `<option>`. Fine at a small catalogue's scale; at real
+  scale every dashboard post-edit page load pulls in the whole catalogue.
+- **On**: the dashboard's related-products field switches to Oscar's own
+  `oscar.apps.dashboard.catalogue.widgets.ProductSelectMultiple` — a
+  Select2 widget backed by Oscar's already-installed
+  `dashboard:catalogue-product-lookup` endpoint
+  (`oscar.apps.dashboard.catalogue.views.ProductLookupView`, a real
+  `title__icontains` search, already staff-permission-gated). Only the
+  *currently selected* products are pre-rendered; everything else loads
+  as the user types. No new backend endpoint needed — this project's
+  `dashboard/forms.py` just wires Oscar's existing one in, plus one real
+  fix Oscar itself doesn't apply consistently: `ProductSelectMultiple`
+  needs an explicit `class="select2 product-select"` to actually get
+  AJAX-backed search (confirmed against
+  `oscar/static/oscar/js/oscar/dashboard.js`'s `initSelects()` — without
+  it, the field would still render, just silently degraded to searching
+  only the few options already in the page).
+
+**Requires** `oscar.apps.dashboard.catalogue` installed (it almost
+certainly already is — it's the products dashboard). If it isn't, turning
+this setting on will fail with a `NoReverseMatch` on
+`dashboard:catalogue-product-lookup`, not silently.
 
 ## Adding a CTA (deliberately not built here)
 

@@ -1,5 +1,7 @@
 import pytest
+from django.test import override_settings
 from django.urls import reverse
+from oscar.test.factories import create_product
 
 from oscar_blog.models import Post
 
@@ -61,3 +63,53 @@ def test_staff_can_delete_post(staff_client):
 
     assert response.status_code == 302
     assert not Post.objects.filter(pk=post.pk).exists()
+
+
+def test_related_products_widget_defaults_to_plain_multiselect(staff_client):
+    create_product(title="Palmera")
+    post = Post.objects.create(title="A post", slug="a-post", body="Body.")
+
+    response = staff_client.get(reverse("dashboard:blog-post-update", kwargs={"pk": post.pk}))
+
+    assert response.status_code == 200
+    content = response.content.decode()
+    assert 'name="related_products"' in content
+    # The plain widget renders every product as an <option> up front, and
+    # isn't the AJAX widget — select2.min.js is always loaded dashboard-
+    # wide (base layout), so what actually distinguishes "plain" is the
+    # absence of the AJAX lookup wiring, not "select2" as a bare string.
+    assert "Palmera" in content
+    assert "data-ajax-url" not in content
+
+
+@override_settings(OSCAR_BLOG_PRODUCT_AUTOCOMPLETE=True)
+def test_related_products_widget_switches_to_ajax_autocomplete_when_enabled(staff_client):
+    selected = create_product(title="Palmera")
+    create_product(title="Ficus")  # not selected — must NOT be pre-rendered
+    post = Post.objects.create(title="A post", slug="a-post", body="Body.")
+    post.related_products.add(selected)
+
+    response = staff_client.get(reverse("dashboard:blog-post-update", kwargs={"pk": post.pk}))
+
+    assert response.status_code == 200
+    content = response.content.decode()
+    # Oscar's own form-field rendering appends " form-control" to whatever
+    # class the widget sets, so this checks the widget's own classes are
+    # present, not an exact class="..." string.
+    assert "select2 product-select" in content
+    assert 'data-ajax-url="/dashboard/catalogue/product-lookup/"' in content
+    # The real point of the AJAX widget: only the already-selected product
+    # is pre-rendered, not the whole catalogue — this is what regressed
+    # without the field.widget.choices reassignment (dashboard/forms.py).
+    assert "Palmera" in content
+    assert "Ficus" not in content
+
+
+@override_settings(OSCAR_BLOG_PRODUCT_AUTOCOMPLETE=True)
+def test_ajax_autocomplete_lookup_endpoint_is_reachable(staff_client):
+    create_product(title="Palmera")
+
+    response = staff_client.get(reverse("dashboard:catalogue-product-lookup"), {"q": "Palm"})
+
+    assert response.status_code == 200
+    assert response.json()["results"][0]["text"] == "Palmera"
