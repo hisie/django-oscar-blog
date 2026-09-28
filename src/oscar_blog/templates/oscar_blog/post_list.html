@@ -1,0 +1,22 @@
+{% extends "oscar/layout.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Blog" %} | {{ block.super }}{% endblock %}
+
+{% block headertext %}{% trans "Blog" %}{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="blog-post-teaser">
+            {% if post.featured_image %}
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            {% endif %}
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+            <p>{{ post.excerpt }}</p>
+        </article>
+    {% empty %}
+        <p>{% trans "No posts yet." %}</p>
+    {% endfor %}
+
+    {% include "oscar/partials/pagination.html" %}
+{% endblock %}

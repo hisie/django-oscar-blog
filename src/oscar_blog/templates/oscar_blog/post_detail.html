@@ -1,0 +1,37 @@
+{% extends "oscar/layout.html" %}
+{% load i18n %}
+
+{% block title %}{{ post.effective_meta_title }} | {{ block.super }}{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% if post.effective_meta_description %}
+        <meta name="description" content="{{ post.effective_meta_description }}">
+    {% endif %}
+{% endblock %}
+
+{% block headertext %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <article class="blog-post">
+        {% if post.featured_image %}
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <div class="blog-post-body">{{ post.body|linebreaks }}</div>
+
+        {% if related_products %}
+            <section class="blog-post-related-products">
+                <h3>{% trans "Mentioned products" %}</h3>
+                <div class="row">
+                    {% for product in related_products %}
+                        <div class="col-sm-4 col-md-3">
+                            <a href="{{ product.get_absolute_url }}">
+                                {{ product.get_title }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </article>
+{% endblock %}
