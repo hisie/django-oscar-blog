@@ -46,6 +46,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   delete, `is_staff`-gated by default.
 - 13 tests, 89% coverage.
 
-[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/hisie/django-oscar-blog/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/hisie/django-oscar-blog/releases/tag/v0.1.0
+[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/hisie/django-oscar-blog/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/hisie/django-oscar-blog/releases/tag/0.1.0
