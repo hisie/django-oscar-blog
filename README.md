@@ -8,7 +8,8 @@ link out to catalogue products they mention.
 
 - A `Post` model: title/slug/excerpt/body/featured image/author/status
   (draft/published)/publish date, plus `meta_title`/`meta_description` for
-  SEO and a `related_products` many-to-many onto `catalogue.Product`.
+  SEO, a `related_products` many-to-many onto `catalogue.Product`, and
+  tags (via [django-taggit](https://github.com/jazzband/django-taggit)).
 - Storefront list/detail views (`oscar_blog.urls`) and a `PostSitemap`.
 - An Oscar dashboard section (`oscar_blog.dashboard`) for staff to create,
   edit, and delete posts — list/create/update/delete views following the
@@ -31,6 +32,7 @@ Add to `INSTALLED_APPS`, **after** `catalogue`/`partner` (it references
 ```python
 INSTALLED_APPS = [
     ...,
+    "taggit",
     "oscar_blog.apps.OscarBlogConfig",
     "oscar_blog.dashboard.apps.BlogDashboardConfig",
 ]
@@ -135,6 +137,19 @@ OSCAR_BLOG_PRODUCT_AUTOCOMPLETE = True  # default: False
 certainly already is — it's the products dashboard). If it isn't, turning
 this setting on will fail with a `NoReverseMatch` on
 `dashboard:catalogue-product-lookup`, not silently.
+
+## Tags
+
+Uses [django-taggit](https://github.com/jazzband/django-taggit) directly
+(BSD-licensed) rather than a hand-rolled tag model — `Post.tags` is a
+`TaggableManager`, editable in the dashboard as a plain comma-separated
+field (taggit's own default widget, no extra code needed). Tags are
+shared across posts (the same tag name is the same `Tag` row everywhere,
+not per-post free text), and the storefront list view supports
+`?tag=<slug>` filtering — both `oscar_blog/post_list.html` and
+`post_detail.html` render each post's tags as links to that filtered
+list. Run `manage.py migrate` after adding `taggit` to `INSTALLED_APPS` —
+it ships its own migrations for the shared `Tag`/`TaggedItem` tables.
 
 ## Adding a CTA (deliberately not built here)
 

@@ -19,6 +19,14 @@
         {% endif %}
         <div class="blog-post-body">{{ post.body|linebreaks }}</div>
 
+        {% if post.tags.all %}
+            <p class="blog-post-tags">
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'blog:post-list' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                {% endfor %}
+            </p>
+        {% endif %}
+
         {% if related_products %}
             <section class="blog-post-related-products">
                 <h3>{% trans "Mentioned products" %}</h3>

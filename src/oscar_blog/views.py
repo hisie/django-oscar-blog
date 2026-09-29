@@ -23,12 +23,27 @@ class PostListView(VisiblePostMixin, ListView):
     context_object_name = "posts"
     paginate_by = 12
 
+    def get_queryset(self):
+        qs = super().get_queryset().prefetch_related("tags")
+        tag = self.request.GET.get("tag")
+        if tag:
+            qs = qs.filter(tags__slug=tag)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_tag"] = self.request.GET.get("tag", "")
+        return context
+
 
 class PostDetailView(VisiblePostMixin, DetailView):
     model = Post
     template_name = "oscar_blog/post_detail.html"
     context_object_name = "post"
     slug_field = "slug"
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("tags")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

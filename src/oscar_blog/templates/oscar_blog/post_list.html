@@ -6,6 +6,13 @@
 {% block headertext %}{% trans "Blog" %}{% endblock %}
 
 {% block content %}
+    {% if current_tag %}
+        <p>
+            {% blocktrans %}Showing posts tagged "{{ current_tag }}"{% endblocktrans %}
+            — <a href="{% url 'blog:post-list' %}">{% trans "clear filter" %}</a>
+        </p>
+    {% endif %}
+
     {% for post in posts %}
         <article class="blog-post-teaser">
             {% if post.featured_image %}
@@ -13,6 +20,13 @@
             {% endif %}
             <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
             <p>{{ post.excerpt }}</p>
+            {% if post.tags.all %}
+                <p class="blog-post-tags">
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'blog:post-list' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                    {% endfor %}
+                </p>
+            {% endif %}
         </article>
     {% empty %}
         <p>{% trans "No posts yet." %}</p>

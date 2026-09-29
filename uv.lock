@@ -298,11 +298,12 @@ wheels = [
 
 [[package]]
 name = "django-oscar-blog"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "django" },
     { name = "django-oscar" },
+    { name = "django-taggit" },
 ]
 
 [package.dev-dependencies]
@@ -320,6 +321,7 @@ dev = [
 requires-dist = [
     { name = "django", specifier = ">=5.2,<5.3" },
     { name = "django-oscar", specifier = ">=4.2,<4.3" },
+    { name = "django-taggit", specifier = ">=6.1.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -383,6 +385,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/54/db/3f2e97f088bb7ab8668ba01373ab42c281aaed20de854808d70e567e00a8/django-tables2-2.7.0.tar.gz", hash = "sha256:4113fcc575eb438a12e83a4d4ea01452e4800d970e8bdd0e4122ac171af1900d", size = 79583, upload-time = "2023-12-05T07:55:00.163Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/96/6c722b5f148212351c38b56dc97d76b3c3efe16211fbc09542155b576a8d/django_tables2-2.7.0-py2.py3-none-any.whl", hash = "sha256:99e06d966ca8ac69fd74092eb45c79a280dd5ca0ccb81395d96261f62128e1af", size = 95226, upload-time = "2023-12-05T07:54:57.255Z" },
+]
+
+[[package]]
+name = "django-taggit"
+version = "6.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/34/a6/f1beaf8f552fe90c153cc039316ebab942c23dfbc88588dde081fefca816/django_taggit-6.1.0.tar.gz", hash = "sha256:c4d1199e6df34125dd36db5eb0efe545b254dec3980ce5dd80e6bab3e78757c3", size = 38151, upload-time = "2024-09-29T08:07:39.477Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6b/34/4185c345530b91d05cb82e05d07148f481a5eb5dc2ac44e092b3daa6f206/django_taggit-6.1.0-py3-none-any.whl", hash = "sha256:ab776264bbc76cb3d7e49e1bf9054962457831bd21c3a42db9138b41956e4cf0", size = 75749, upload-time = "2024-09-29T08:07:14.612Z" },
 ]
 
 [[package]]

@@ -56,6 +56,27 @@ def test_staff_can_create_post_and_is_set_as_author(staff_client, django_user_mo
     assert post.author.username == "staff"
 
 
+def test_staff_can_set_tags_via_the_dashboard_form(staff_client):
+    response = staff_client.post(
+        reverse("dashboard:blog-post-create"),
+        {
+            "title": "A tagged post",
+            "slug": "a-tagged-post",
+            "excerpt": "",
+            "body": "Body text.",
+            "status": Post.Status.DRAFT,
+            "meta_title": "",
+            "meta_description": "",
+            "related_products": [],
+            "tags": "succulents, care tips",
+        },
+    )
+
+    assert response.status_code == 302
+    post = Post.objects.get(slug="a-tagged-post")
+    assert {t.name for t in post.tags.all()} == {"succulents", "care tips"}
+
+
 def test_staff_can_delete_post(staff_client):
     post = Post.objects.create(title="A post", slug="a-post", body="Body.")
 

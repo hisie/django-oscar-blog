@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "haystack",
     "treebeard",
     "django_tables2",
+    "taggit",
     # The app under test.
     "oscar_blog.apps.OscarBlogConfig",
     "oscar_blog.dashboard.apps.BlogDashboardConfig",

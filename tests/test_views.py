@@ -63,3 +63,36 @@ def test_detail_view_shows_related_products(client):
 
     assert response.status_code == 200
     assert list(response.context["related_products"]) == [product]
+
+
+def test_list_view_filters_by_tag(client):
+    tagged = make_post(
+        title="Tagged",
+        slug="tagged",
+        status=Post.Status.PUBLISHED,
+        published_at=timezone.now() - timedelta(days=1),
+    )
+    tagged.tags.add("succulents")
+    untagged = make_post(
+        title="Untagged",
+        slug="untagged",
+        status=Post.Status.PUBLISHED,
+        published_at=timezone.now() - timedelta(days=1),
+    )
+
+    response = client.get(reverse("blog:post-list"), {"tag": "succulents"})
+
+    titles = [post.title for post in response.context["posts"]]
+    assert titles == [tagged.title]
+    assert untagged.title not in titles
+    assert response.context["current_tag"] == "succulents"
+
+
+def test_detail_page_links_tags_back_to_filtered_list(client):
+    post = make_post(status=Post.Status.PUBLISHED, published_at=timezone.now() - timedelta(days=1))
+    post.tags.add("succulents")
+
+    response = client.get(post.get_absolute_url())
+
+    assert response.status_code == 200
+    assert 'href="/blog/?tag=succulents"' in response.content.decode()

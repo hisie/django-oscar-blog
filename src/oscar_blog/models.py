@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from taggit.managers import TaggableManager
 
 
 class PostQuerySet(models.QuerySet):
@@ -71,6 +72,8 @@ class Post(models.Model):
         related_name="blog_posts",
         blank=True,
     )
+
+    tags = TaggableManager(blank=True)
 
     date_created = models.DateTimeField(_("date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("date updated"), auto_now=True)

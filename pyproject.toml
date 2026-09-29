@@ -1,6 +1,6 @@
 [project]
 name = "django-oscar-blog"
-version = "0.2.0"
+version = "0.3.0"
 description = "A blog app for django-oscar, with posts optionally linking to catalogue products."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -20,6 +20,7 @@ classifiers = [
 dependencies = [
     "django>=5.2,<5.3",
     "django-oscar>=4.2,<4.3",
+    "django-taggit>=6.1.0",
 ]
 
 [project.urls]

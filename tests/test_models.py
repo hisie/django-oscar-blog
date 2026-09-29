@@ -54,3 +54,18 @@ def test_related_products_accepts_catalogue_products():
     post.related_products.add(product)
     assert list(post.related_products.all()) == [product]
     assert list(product.blog_posts.all()) == [post]
+
+
+def test_tags_can_be_added_and_are_shared_across_posts():
+    post_a = make_post(title="A", slug="a")
+    post_b = make_post(title="B", slug="b")
+
+    post_a.tags.add("succulents", "care tips")
+    post_b.tags.add("succulents")
+
+    assert {t.name for t in post_a.tags.all()} == {"succulents", "care tips"}
+    # Same tag name on two posts is the same Tag row, not a duplicate —
+    # that's the whole point of a shared tag vocabulary (browsing by tag
+    # across posts, not per-post free text).
+    succulents_tag = post_a.tags.get(name="succulents")
+    assert post_b.tags.get(name="succulents").pk == succulents_tag.pk

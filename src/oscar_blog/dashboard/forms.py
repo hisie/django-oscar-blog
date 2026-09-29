@@ -92,6 +92,7 @@ class PostUpdateForm(forms.ModelForm):
             "meta_title",
             "meta_description",
             "related_products",
+            "tags",
         )
         widgets = {
             "published_at": forms.DateTimeInput(attrs={"type": "datetime-local"}),
