@@ -79,6 +79,26 @@ class PostUpdateForm(forms.ModelForm):
         # Confirmed live via PostDashboardAutocompleteTests, not assumed.
         field.widget.choices = field.choices
 
+        # TinyMCE replaces this textarea with its own hidden input + a
+        # separate visible iframe, syncing content back only on submit.
+        # The browser's native "required field" validation runs *before*
+        # that sync (and before any submit-event JS at all), can't focus
+        # a display:none field to show its error bubble, and silently
+        # blocks the whole submit — confirmed live: "An invalid form
+        # control with name='body' is not focusable" in the console, no
+        # request ever sent. Oscar's own wysiwyg-bound fields sidestep
+        # this by being blank=True (e.g. FlatPage.content) — Post.body is
+        # deliberately required content-wise, so instead: drop Django's
+        # required flag here (which also removes the HTML `required`
+        # attribute) and re-enforce non-blank server-side in clean_body().
+        self.fields["body"].required = False
+
+    def clean_body(self):
+        body = self.cleaned_data.get("body", "").strip()
+        if not body:
+            raise forms.ValidationError(_("This field is required."))
+        return body
+
     class Meta:
         model = Post
         fields = (

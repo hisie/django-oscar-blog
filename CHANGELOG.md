@@ -5,6 +5,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `Post.body`'s dashboard widget no longer renders an HTML `required`
+  attribute. TinyMCE replaces the textarea with a hidden input plus a
+  separate visible iframe, syncing content back only on submit — the
+  browser's native "required field" validation runs *before* that sync,
+  can't focus a `display:none` field to show its error, and silently
+  blocked the entire save (confirmed live: "An invalid form control...
+  is not focusable" in the console, no request ever sent). Non-blank
+  `body` is still enforced server-side, in `clean_body()`.
+
+## [0.3.0] - 2026-09-29
+
 ### Added
 
 - Tags (via [django-taggit](https://github.com/jazzband/django-taggit)):
@@ -46,6 +59,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   delete, `is_staff`-gated by default.
 - 13 tests, 89% coverage.
 
-[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/hisie/django-oscar-blog/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/hisie/django-oscar-blog/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/hisie/django-oscar-blog/releases/tag/0.1.0
