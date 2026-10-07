@@ -160,6 +160,22 @@ reusable blog app should assume. If your project adds one, the natural
 places are `oscar_blog/post_list.html`/`post_detail.html` (override them)
 or a custom template tag included from there.
 
+## Translations
+
+The package ships a Spanish translation (`src/oscar_blog/locale/es/`). Both
+the `.po` source and the compiled `.mo` are committed, so the wheel includes
+the `.mo` and nothing needs compiling on install. After editing a `.po`,
+recompile before releasing:
+
+```bash
+msgfmt -o src/oscar_blog/locale/es/LC_MESSAGES/django.mo \
+    src/oscar_blog/locale/es/LC_MESSAGES/django.po
+```
+
+New strings are extracted with `django-admin makemessages -l es` run from
+`src/oscar_blog/`. A project can override any single string in its own
+`LOCALE_PATHS` without copying the whole catalogue.
+
 ## Development
 
 ```

@@ -1,0 +1,181 @@
+# Spanish translations for django-oscar-blog.
+msgid ""
+msgstr ""
+"Project-Id-Version: django-oscar-blog\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Blog dashboard"
+msgstr "Panel del blog"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Related products"
+msgstr "Productos relacionados"
+
+msgid "Products this post mentions — shown on the post page and available to the newsletter."
+msgstr "Productos que menciona este artículo: se muestran en la página del artículo y están disponibles para la newsletter."
+
+msgid "This field is required."
+msgstr "Este campo es obligatorio."
+
+msgid "All posts"
+msgstr "Todos los artículos"
+
+#, python-format
+msgid " with title containing '%s'"
+msgstr " con título que contiene '%s'"
+
+#, python-format
+msgid " with status '%s'"
+msgstr " con estado '%s'"
+
+#, python-format
+msgid "Post '%s' saved"
+msgstr "Artículo '%s' guardado"
+
+msgid "Create new post"
+msgstr "Crear nuevo artículo"
+
+#, python-format
+msgid "Deleted post '%s'"
+msgstr "Artículo '%s' eliminado"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "title"
+msgstr "título"
+
+msgid "slug"
+msgstr "slug"
+
+msgid "excerpt"
+msgstr "extracto"
+
+msgid "Short summary shown in listings and used as a default meta description."
+msgstr "Resumen corto que se muestra en los listados y se usa como meta descripción por defecto."
+
+msgid "body"
+msgstr "contenido"
+
+msgid "featured image"
+msgstr "imagen destacada"
+
+msgid "author"
+msgstr "autor"
+
+msgid "status"
+msgstr "estado"
+
+msgid "published at"
+msgstr "publicado el"
+
+msgid "A post only appears on the storefront once this date has passed and status is Published."
+msgstr "Un artículo solo aparece en la tienda cuando ha pasado esta fecha y su estado es Publicado."
+
+msgid "meta title"
+msgstr "meta título"
+
+msgid "meta description"
+msgstr "meta descripción"
+
+msgid "related products"
+msgstr "productos relacionados"
+
+msgid "date created"
+msgstr "fecha de creación"
+
+msgid "date updated"
+msgstr "fecha de actualización"
+
+msgid "post"
+msgstr "artículo"
+
+msgid "posts"
+msgstr "artículos"
+
+#, python-format
+msgid "Delete post '%(title)s'?"
+msgstr "¿Eliminar el artículo '%(title)s'?"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Blog posts"
+msgstr "Artículos del blog"
+
+msgid "Delete post"
+msgstr "Eliminar artículo"
+
+#, python-format
+msgid "Delete post <strong>%(title)s</strong> - are you sure?"
+msgstr "¿Seguro que quiere eliminar el artículo <strong>%(title)s</strong>?"
+
+msgid "Deleting..."
+msgstr "Borrando..."
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "or"
+msgstr "o"
+
+msgid "cancel"
+msgstr "cancelar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Searching..."
+msgstr "Buscando..."
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Published at"
+msgstr "Publicado el"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "No posts found."
+msgstr "No se han encontrado artículos."
+
+msgid "Saving..."
+msgstr "Guardando..."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Mentioned products"
+msgstr "Productos mencionados"
+
+#, python-format
+msgid "Showing posts tagged \"%(current_tag)s\""
+msgstr "Artículos con la etiqueta \"%(current_tag)s\""
+
+msgid "clear filter"
+msgstr "quitar filtro"
+
+msgid "No posts yet."
+msgstr "Todavía no hay artículos."

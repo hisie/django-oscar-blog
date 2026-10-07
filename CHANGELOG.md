@@ -5,6 +5,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-07
+
+### Added
+
+- Spanish translation (`oscar_blog/locale/es`, `.po` and compiled `.mo`
+  both committed and shipped in the wheel): the storefront list and post
+  pages, the dashboard pages, forms, messages and the model/field names.
+- `oscar_blog/locale/en`: the English source catalogue (empty `msgstr`s,
+  `.po` and `.mo`), the same reference template Django and Oscar ship. No
+  behaviour change: the `msgid` is the English text.
+
+### Changed
+
+- The app's verbose name ("Blog") is now a translatable string.
+
+## [0.4.0] - 2026-10-02
+
 ### Fixed
 
 - `Post.body`'s dashboard widget no longer renders an HTML `required`
@@ -59,7 +76,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   delete, `is_staff`-gated by default.
 - 13 tests, 89% coverage.
 
-[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/hisie/django-oscar-blog/compare/0.4.0...0.5.0
+[0.4.0]: https://github.com/hisie/django-oscar-blog/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/hisie/django-oscar-blog/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/hisie/django-oscar-blog/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/hisie/django-oscar-blog/releases/tag/0.1.0
