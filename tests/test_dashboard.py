@@ -134,3 +134,12 @@ def test_ajax_autocomplete_lookup_endpoint_is_reachable(staff_client):
 
     assert response.status_code == 200
     assert response.json()["results"][0]["text"] == "Palmera"
+
+
+def test_excerpt_is_a_plain_textarea_without_the_rich_text_editor(staff_client):
+    response = staff_client.get(reverse("dashboard:blog-post-create"))
+
+    form = response.context["form"]
+    assert "no-widget-init" in form["excerpt"].field.widget.attrs["class"]
+    # The body keeps the editor.
+    assert "no-widget-init" not in form["body"].field.widget.attrs.get("class", "")

@@ -5,6 +5,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-09
+
+### Fixed
+
+- The dashboard's excerpt field is a plain textarea again. The post form is
+  `wysiwyg`, which had attached TinyMCE to it, but the excerpt is plain text
+  (escaped in listings, the meta description and the newsletter).
+
 ## [0.5.0] - 2026-10-07
 
 ### Added
@@ -76,7 +84,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   delete, `is_staff`-gated by default.
 - 13 tests, 89% coverage.
 
-[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/hisie/django-oscar-blog/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/hisie/django-oscar-blog/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/hisie/django-oscar-blog/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/hisie/django-oscar-blog/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/hisie/django-oscar-blog/compare/0.2.0...0.3.0

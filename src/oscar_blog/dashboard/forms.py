@@ -115,5 +115,9 @@ class PostUpdateForm(forms.ModelForm):
             "tags",
         )
         widgets = {
+            # Plain text: it is escaped in the listings, the meta description
+            # and the newsletter. The form is `wysiwyg`, which would attach
+            # TinyMCE to every textarea; `no-widget-init` is Oscar's opt-out.
+            "excerpt": forms.Textarea(attrs={"rows": 3, "class": "no-widget-init"}),
             "published_at": forms.DateTimeInput(attrs={"type": "datetime-local"}),
         }
